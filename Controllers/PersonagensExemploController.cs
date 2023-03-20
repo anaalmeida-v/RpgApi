@@ -60,6 +60,25 @@ namespace RpgApi.Controllers
             return Ok(personagens);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetSingle(int id)
+        {
+            return Ok(personagens.FirstOrDefault(pe => pe.Id == id));
+        }
+
+        [HttpGet("Get")]
+        public IActionResult GetFirst()
+        {
+            return Ok(personagens[0]);
+        }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            return Ok(personagens);
+        }
+        
+
         [HttpGet("GetOrdenado")]
         public IActionResult GetOrdem()
         {
@@ -84,12 +103,12 @@ namespace RpgApi.Controllers
         [HttpGet("GetSemCavaleiro")]
         public IActionResult GetSemCavaleiro()
         {
-            List<Personagem> listaBusca = personagens.FindAll(personagens => personagens.Class != ClasseEnum.Cavaleiro);
+            List<Personagem> listaBusca = personagens.FindAll(personagens => personagens.Classe != ClasseEnum.Cavaleiro);
             return Ok(listaBusca);
         }
 
         [HttpGet("GetByNomeAproximado/{nome}")]
-        public IAction GetByNomeAproximado(string nome )
+        public IActionResult GetByNomeAproximado(string nome )
         {
             List<Personagem> listaBusca = personagens.FindAll (p => p.Nome.Contains(nome));
             return Ok(listaBusca);
